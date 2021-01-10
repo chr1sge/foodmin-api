@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foodmin-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: foodmin-api-app
+      version: one
+  template:
+    metadata:
+      name: foodmin-api-app
+      labels:
+        app: foodmin-api-app
+        version: one
+    spec:
+      containers:
+        - name: foodmin-api-app-container
+          image: chr1sge/foodmin-api:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: foodmin-api-app-svc
+  labels:
+    app: foodmin-api-app
+spec:
+  selector:
+    app: foodmin-api-app
+    version: one
+  type: NodePort
+  ports:
+    - nodePort: 31113
+      port: 80
+      targetPort: 80
