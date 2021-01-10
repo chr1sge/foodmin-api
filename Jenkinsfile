@@ -4,12 +4,18 @@ pipeline {
 
   stages {
 
-    stage('Checkout Source') {
+    stage("Checkout Source") {
       steps {
         git url:'https://github.com/chr1sge/foodmin-api.git', branch:'master'
       }
     }
-
+    stage("Build") {
+      steps{
+        script {
+          sh 'mvn clean install'
+        }
+      }
+    }
       stage("Build image") {
             steps {
                 script {
@@ -29,7 +35,7 @@ pipeline {
         }
 
 
-    stage('Deploy App') {
+    stage("Deploy App") {
       steps {
         script {
           kubernetesDeploy(configs: "foodmin.yml", kubeconfigId: "mykubeconfig")
