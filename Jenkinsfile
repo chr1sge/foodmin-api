@@ -19,7 +19,7 @@ pipeline {
       stage("Build image") {
             steps {
                 script {
-                    myapp = docker.build("chrisge/foodmin-api")
+                    myapp = docker.build("chr1sge/foodmin-api")
                 }
             }
         }
