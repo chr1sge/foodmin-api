@@ -38,7 +38,7 @@ pipeline {
     stage("Deploy App") {
       steps {
         script {
-          kubernetesDeploy(configs: "foodmin.yml", kubeconfigId: "mykubeconfig")
+          kubernetesDeploy(configs: "foodmin.yml", kubeconfigId: "kubeconfigId")
         }
       }
     }
